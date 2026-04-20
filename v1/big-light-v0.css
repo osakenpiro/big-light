@@ -1,0 +1,204 @@
+/* =========================================================
+   ビッグライトモード v0 — osakenpiro 全プロダクト共通規格
+   ---------------------------------------------------------
+   使い方: <link rel="stylesheet" href="big-light-v0.css">
+          <script src="big-light-v0.js"></script>
+   原則: [data-biglight="1"] が root に付いたときだけ発火
+        通常状態のデザインには一切影響しない
+   ========================================================= */
+
+/* ---------- トグルボタン（両状態で常時表示） ---------- */
+.big-light-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid #1A1A1A;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+.big-light-toggle:hover { transform: scale(1.05); }
+.big-light-toggle:focus-visible { outline: 3px solid #0A45D6; outline-offset: 2px; }
+
+[data-biglight="1"] .big-light-toggle {
+  width: 64px;
+  height: 64px;
+  font-size: 32px;
+  background: #FFF9D6;
+  border-color: #0A45D6;
+}
+
+/* ---------- ビッグライトON時の全面上書き ---------- */
+[data-biglight="1"] {
+  font-size: 24px !important;
+  line-height: 1.9 !important;
+  font-family: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic UI", sans-serif !important;
+  background: #FFFFFF !important;
+  color: #1A1A1A !important;
+}
+
+[data-biglight="1"] body,
+[data-biglight="1"] main,
+[data-biglight="1"] section,
+[data-biglight="1"] article,
+[data-biglight="1"] header,
+[data-biglight="1"] footer,
+[data-biglight="1"] aside,
+[data-biglight="1"] nav,
+[data-biglight="1"] div {
+  background-color: #FFFFFF !important;
+  color: #1A1A1A !important;
+}
+
+/* 装飾コンテナの排除（テキストそのものをUIに） */
+[data-biglight="1"] .card,
+[data-biglight="1"] .box,
+[data-biglight="1"] .panel,
+[data-biglight="1"] .container,
+[data-biglight="1"] [class*="gradient"],
+[data-biglight="1"] [class*="glass"] {
+  background: #FFFFFF !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 縦書きスパイン・装飾要素を非表示 */
+[data-biglight="1"] .re-design-spine,
+[data-biglight="1"] .tategaki-spine,
+[data-biglight="1"] [class*="spine"],
+[data-biglight="1"] [class*="orbit"],
+[data-biglight="1"] [class*="tayutai"] {
+  display: none !important;
+}
+
+/* アニメ全停止 */
+[data-biglight="1"] *,
+[data-biglight="1"] *::before,
+[data-biglight="1"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* リンク = 文字そのものがUI */
+[data-biglight="1"] a,
+[data-biglight="1"] a:visited {
+  color: #0A45D6 !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 4px !important;
+  padding: 8px 4px !important;
+  display: inline-block;
+  min-height: 56px;
+  line-height: 1.6;
+}
+[data-biglight="1"] a:hover,
+[data-biglight="1"] a:focus-visible {
+  background: #FFF9D6 !important;
+  color: #0A2080 !important;
+  outline: 2px solid #0A45D6;
+  outline-offset: 2px;
+}
+
+/* ボタン */
+[data-biglight="1"] button,
+[data-biglight="1"] input[type="button"],
+[data-biglight="1"] input[type="submit"],
+[data-biglight="1"] .btn {
+  font-size: 24px !important;
+  min-height: 56px !important;
+  padding: 12px 24px !important;
+  background: #FFFFFF !important;
+  color: #0A45D6 !important;
+  border: 2px solid #0A45D6 !important;
+  border-radius: 6px !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+}
+[data-biglight="1"] button:hover,
+[data-biglight="1"] .btn:hover {
+  background: #FFF9D6 !important;
+}
+
+/* 見出し階層 */
+[data-biglight="1"] h1 { font-size: 42px !important; font-weight: 900 !important; line-height: 1.4 !important; margin: 32px 0 24px !important; }
+[data-biglight="1"] h2 { font-size: 36px !important; font-weight: 800 !important; line-height: 1.4 !important; margin: 28px 0 20px !important; }
+[data-biglight="1"] h3 { font-size: 30px !important; font-weight: 700 !important; line-height: 1.5 !important; margin: 24px 0 16px !important; }
+[data-biglight="1"] h4 { font-size: 26px !important; font-weight: 700 !important; margin: 20px 0 12px !important; }
+
+/* 本文要素 */
+[data-biglight="1"] p,
+[data-biglight="1"] li,
+[data-biglight="1"] dd,
+[data-biglight="1"] dt {
+  font-size: 24px !important;
+  line-height: 1.9 !important;
+  margin-bottom: 16px !important;
+}
+
+[data-biglight="1"] ul,
+[data-biglight="1"] ol {
+  padding-left: 32px !important;
+}
+
+/* 入力フォーム */
+[data-biglight="1"] input[type="text"],
+[data-biglight="1"] input[type="search"],
+[data-biglight="1"] input[type="email"],
+[data-biglight="1"] textarea,
+[data-biglight="1"] select {
+  font-size: 24px !important;
+  min-height: 56px !important;
+  padding: 12px !important;
+  border: 2px solid #1A1A1A !important;
+  border-radius: 6px !important;
+  background: #FFFFFF !important;
+  color: #1A1A1A !important;
+}
+
+/* テーブル */
+[data-biglight="1"] table {
+  font-size: 22px !important;
+  border-collapse: collapse !important;
+}
+[data-biglight="1"] th,
+[data-biglight="1"] td {
+  padding: 12px 16px !important;
+  border: 2px solid #1A1A1A !important;
+}
+[data-biglight="1"] th {
+  background: #F0F0F0 !important;
+  font-weight: 700 !important;
+}
+
+/* 画像は維持（文脈情報のため） */
+[data-biglight="1"] img {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* モバイル微調整 */
+@media (max-width: 640px) {
+  [data-biglight="1"] {
+    font-size: 22px !important;
+  }
+  [data-biglight="1"] h1 { font-size: 34px !important; }
+  [data-biglight="1"] h2 { font-size: 28px !important; }
+  [data-biglight="1"] h3 { font-size: 24px !important; }
+  .big-light-toggle {
+    top: 12px;
+    right: 12px;
+  }
+}
