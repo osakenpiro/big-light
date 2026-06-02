@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>big-light（ビッグライト）— 文字そのものがUI</title>
+<meta name="description" content="ビッグライトモード — osakenpiro プロダクト共通のアクセシビリティ規格。文字そのものがUI。老人と子供が先に使えて、大人が追いつくUI。Boolean→Float の UI実装。MIT。">
+<meta property="og:title" content="🔆 big-light（ビッグライト）">
+<meta property="og:description" content="文字そのものがUI。リンクに手触りがある。老人と子供が先に使えて、大人が追いつくUI。CDN 2行で導入できる共通アクセシビリティ規格。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://osakenpiro.github.io/big-light/">
+<!-- dogfood: big-light 自身を読み込む（右上トグルがこのページに出現する） -->
+<link rel="stylesheet" href="https://osakenpiro.github.io/big-light/v1/big-light-v0.css">
+<style>
+  :root{
+    --void:#0a0a0f; --void-deep:#06060a; --surface:#15141a; --surface-hi:#1c1a23;
+    --gold:#d4a853; --parchment:#c8b8a0; --violet:#a78bfa;
+    --fg-1:#e8e0d0; --fg-2:#b8b0a0; --fg-3:#807868; --dim:#5a5448;
+    --border:rgba(200,184,160,.08); --border-hover:rgba(212,168,83,.22);
+    --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Hiragino Sans","Yu Gothic Medium",system-ui,sans-serif;
+    --serif:"Cormorant Garamond","Times New Roman","游明朝体","Yu Mincho","Hiragino Mincho ProN",serif;
+    --mono:"JetBrains Mono","SF Mono","Menlo","Consolas",monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--void);color:var(--fg-1);
+    font-family:var(--sans);line-height:1.8;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+  body{background-image:radial-gradient(circle at 50% -10%, #12111a 0%, var(--void) 55%, var(--void-deep) 100%);
+    min-height:100vh;position:relative;overflow-x:hidden}
+  /* stars */
+  .stars{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      radial-gradient(1px 1px at 12% 22%, rgba(232,224,208,.45), transparent),
+      radial-gradient(1px 1px at 78% 14%, rgba(232,224,208,.35), transparent),
+      radial-gradient(1px 1px at 33% 67%, rgba(212,168,83,.30), transparent),
+      radial-gradient(1px 1px at 64% 81%, rgba(232,224,208,.28), transparent),
+      radial-gradient(1px 1px at 88% 54%, rgba(232,224,208,.22), transparent),
+      radial-gradient(1px 1px at 22% 88%, rgba(212,168,83,.20), transparent);}
+  main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:14vh 24px 96px}
+  .caption{font-family:var(--serif);font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);margin-bottom:18px}
+  h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,9vw,4.4rem);line-height:1;letter-spacing:.02em;color:var(--fg-1);margin:0 0 6px}
+  .sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,3vw,1.5rem);color:var(--gold);margin:0 0 28px;letter-spacing:.06em}
+  .lead{font-size:clamp(1.05rem,2.4vw,1.3rem);color:var(--fg-1);max-width:620px;margin:0 0 14px}
+  .lead b{color:var(--gold);font-weight:600}
+  .hint{font-size:.95rem;color:var(--fg-2);background:color-mix(in srgb,var(--gold) 8%,transparent);
+    border:1px solid var(--border-hover);border-radius:10px;padding:12px 16px;margin:22px 0 44px}
+  .hint kbd{font-family:var(--mono);font-size:.8rem;background:var(--surface-hi);border:1px solid var(--border);
+    border-radius:5px;padding:1px 6px;color:var(--fg-1)}
+  section{margin:40px 0;padding-top:26px;border-top:1px solid var(--border)}
+  h2{font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;
+    font-weight:500;margin:0 0 18px}
+  pre{background:var(--void-deep);border:1px solid var(--border);border-radius:10px;padding:16px 18px;overflow-x:auto;
+    font-family:var(--mono);font-size:.82rem;line-height:1.7;color:var(--parchment)}
+  pre .tag{color:var(--violet)} pre .att{color:var(--gold)} pre .str{color:var(--fg-2)}
+  ul{margin:0;padding:0;list-style:none}
+  li{position:relative;padding:7px 0 7px 22px;color:var(--fg-1)}
+  li::before{content:"";position:absolute;left:2px;top:16px;width:7px;height:7px;border-radius:50%;
+    background:var(--gold);opacity:.7}
+  li b{color:var(--fg-1);font-weight:600} li code{font-family:var(--mono);font-size:.84em;color:var(--gold)}
+  li span{color:var(--fg-2)}
+  .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+  .links a{font-family:var(--mono);font-size:.82rem;letter-spacing:.04em;color:var(--fg-1);
+    border:1px solid var(--border-hover);border-radius:999px;padding:9px 18px;transition:.2s}
+  .links a:hover{background:color-mix(in srgb,var(--gold) 14%,transparent);border-color:var(--gold);color:#fff}
+  .mit{margin-top:30px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--dim)}
+  footer{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:32px 24px 40px;border-top:1px solid var(--border);
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--fg-3);line-height:1.9}
+  footer a{color:var(--fg-2);border-bottom:1px solid var(--border-hover)}
+  footer .crest{font-family:var(--serif);font-style:italic;color:var(--gold);letter-spacing:.04em}
+  a{color:inherit}
+  ::selection{background:var(--gold);color:#1a1a1a}
+</style>
+</head>
+<body>
+<div class="stars" aria-hidden="true"></div>
+<main>
+  <p class="caption">osakenpiro · Re:DeSign · Wave 7 · #全人類UX改善計画</p>
+  <h1>🔆 big-light</h1>
+  <p class="sub">ビッグライトモード</p>
+  <p class="lead"><b>文字そのものがUI。</b>リンクに手触りがある。老人と子供が先に使えて、大人が追いつくUI。</p>
+  <p class="hint">→ いま、この画面の<b>右上</b>に ☀️ / 🔆 のトグルが出ています。押すと <b>このページ自身</b>がビッグライトモードに切り替わります（<kbd>Alt</kbd>+<kbd>B</kbd> でも）。これがそのまま導入後の動きです。</p>
+
+  <section>
+    <h2>CDN で導入</h2>
+    <p style="color:var(--fg-2);margin:0 0 14px">本文末尾に <b style="color:var(--fg-1)">2行</b> 足すだけ。右上にトグルが出現します。</p>
+    <pre><code>&lt;<span class="tag">link</span> <span class="att">rel</span>=<span class="str">"stylesheet"</span> <span class="att">href</span>=<span class="str">"https://osakenpiro.github.io/big-light/v1/big-light-v0.css"</span>&gt;
+&lt;<span class="tag">script</span> <span class="att">src</span>=<span class="str">"https://osakenpiro.github.io/big-light/v1/big-light-v0.js"</span>&gt;&lt;/<span class="tag">script</span>&gt;</code></pre>
+  </section>
+
+  <section>
+    <h2>仕様</h2>
+    <ul>
+      <li><code>[data-biglight="1"]</code> が root に付いたときだけ発火 <span>— 既存デザインへの影響ゼロ</span></li>
+      <li><b>右上固定トグル</b>（☀️ / 🔆）<span>— クリック or <kbd style="font-family:var(--mono)">Alt+B</kbd> で切替</span></li>
+      <li><b>状態永続化</b> <span>— localStorage</span> <code>osakenpiro.biglight.v1</code></li>
+      <li><b>クロスオリジン引継ぎ</b> <span>— URLパラメータ</span> <code>?bl=1</code></li>
+      <li><b>JS API</b> <span>—</span> <code>window.BigLight.{on,off,toggle,isOn}</code></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>設計思想</h2>
+    <ul>
+      <li><b>Boolean → Float の UI実装</b> <span>— ダーク / ライトの二値に「密度軸」を一本足す</span></li>
+      <li><b>文字そのものがUI</b> <span>— カード・パネル等の装飾コンテナを排し、テキスト自体をタップ対象に</span></li>
+      <li><b>腐葉土設計</b> <span>— 既存デザインを壊さず、上に重ねる規格化レイヤー</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>もっと見る</h2>
+    <div class="links">
+      <a href="https://osakenpiro.github.io/big-light/v1/spec.md">📄 仕様書 spec.md</a>
+      <a href="https://github.com/osakenpiro/big-light" target="_blank" rel="noopener">⌨ GitHub</a>
+      <a href="https://osakenpiro.github.io/">🏠 osakenpiro 玄関</a>
+    </div>
+    <p class="mit">MIT License · © 2026 osakenpiro</p>
+  </section>
+</main>
+
+<footer>
+  共通規格 = <a href="https://github.com/osakenpiro/big-light">osakenpiro/big-light</a>（CSS/JS・CDN配布・MIT）· 安定版 v1<br>
+  <span class="crest">osakenpiro</span> · Re:DeSign 柱 · #全人類UX改善計画 · Visionium
+</footer>
+
+<!-- osakenpiro support button v1 -->
+<style>
+  .osk-support-btn{position:fixed;bottom:16px;right:16px;background:linear-gradient(135deg,#FFDD00 0%,#FFC700 100%);
+    color:#1a1a1a;padding:10px 16px;border-radius:999px;text-decoration:none;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans',sans-serif;font-weight:700;font-size:13px;
+    box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:99999;display:inline-flex;align-items:center;gap:6px;
+    transition:transform .2s ease,box-shadow .2s ease}
+  .osk-support-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+  @media (max-width:480px){.osk-support-btn{font-size:12px;padding:8px 12px}}
+</style>
+<a href="https://www.buymeacoffee.com/osakenpiro" target="_blank" rel="noopener noreferrer"
+   class="osk-support-btn" aria-label="osakenpiroを応援する">☕ <span>応援</span></a>
+<!-- /osakenpiro support button -->
+
+<!-- dogfood: big-light JS（右上トグルを出す） -->
+<script src="https://osakenpiro.github.io/big-light/v1/big-light-v0.js"></script>
+</body>
+</html>
